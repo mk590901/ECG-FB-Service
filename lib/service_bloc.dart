@@ -59,13 +59,9 @@ class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
       if (data is Map && data.containsKey('counter') && data.containsKey('numbers')) {
         int counter = data['counter'] as int;
         List<double> rawData = List<double>.from(data['numbers'].map((e) => e as double));
-        print('receivePort: $counter, numbers: ${rawData.length}');
+        //print('receivePort: $counter, numbers: ${rawData.length}');
         DataHolder.instance()?.putData(rawData);
-        add(UpdateData(
-            counter, rawData
-          // data['counter'] as int,
-          // List<double>.from(data['numbers'].map((e) => e as double)),
-        ));
+        add(UpdateData(counter, rawData));
       }
     });
 

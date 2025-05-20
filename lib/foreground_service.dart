@@ -54,19 +54,8 @@ class ServiceTaskHandler extends TaskHandler {
   @override
   void onRepeatEvent(DateTime timestamp, SendPort? sendPort) async {
     counter++;
-    // Generate List<double> (3 random numbers between 0 and 100)
-    // List<double> numbers = [
-    //   random.nextDouble() * 100,
-    //   random.nextDouble() * 100,
-    //   random.nextDouble() * 100,
-    // ];
     List<double> numbers = ecgSimulator.generateECGData();
-    print('Foreground service running: $counter, numbers: ${numbers.length}');
-
-    //List<int> rowData = ecgSimulator.generateBuffer();
-    // List<double> rawData = ecgSimulator.generateECGData();
-    // DataHolder.instance()?.putData(rawData);
-
+    //@print('Foreground service running: $counter, numbers: ${numbers.length}');
     // Update notification
     await FlutterForegroundTask.updateService(
       foregroundTaskOptions: const ForegroundTaskOptions(interval: 1000,),

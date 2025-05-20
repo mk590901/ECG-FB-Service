@@ -35,11 +35,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // GraphWidget graphWidget = GraphWidget(
-    //     samplesNumber: 128,
-    //     width: 360,
-    //     height: 100,
-    //     mode: GraphMode.flowing);
+    // CustomCardWidget cardWidget = CustomCardWidget(
+    //   graphWidget: GraphWidget(
+    //       samplesNumber: 128, //getSeriesLength(),
+    //       width: 340,
+    //       height: 100,
+    //       mode: GraphMode.flowing),
+    //   onDeleteWidgetAction: () {},
+    // );
+
+    GraphWidget graphWidget = GraphWidget(
+          samplesNumber: 128, //getSeriesLength(),
+          width: 400,
+          height: 100,
+          mode: GraphMode.flowing);
 
     return PopScope(
       canPop: false, // Disable the default behavior of the "back" button
@@ -124,25 +133,18 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
-                  CustomCardWidget(
-                      graphWidget: GraphWidget(
-                          samplesNumber: 128, //getSeriesLength(),
-                          width: 340,
-                          height: 100,
-                          mode: GraphMode.flowing),
-                          onDeleteWidgetAction: () {},
-                  ),
+                  //cardWidget,
+                  graphWidget,
 
-                  // BlocBuilder<ServiceBloc, ServiceState>(
-                  //   builder: (context, state) {
-                  //     return graphWidget;
-                  //     // return GraphWidget(
-                  //     //     samplesNumber: 128,
-                  //     //     width: 360,
-                  //     //     height: 100,
-                  //     //     mode: GraphMode.flowing);
-                  //   },
+                  // CustomCardWidget(
+                  //     graphWidget: GraphWidget(
+                  //         samplesNumber: 128, //getSeriesLength(),
+                  //         width: 340,
+                  //         height: 100,
+                  //         mode: GraphMode.flowing),
+                  //         onDeleteWidgetAction: () {},
                   // ),
+
                   SizedBox(height: 30),
 
                   BlocBuilder<ServiceBloc, ServiceState>(
@@ -174,45 +176,45 @@ class HomeScreen extends StatelessWidget {
                   //   },
                   // ),
                   SizedBox(height: 10),
-                  TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      labelText: 'Enter data to send',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  SizedBox(height: 10),
+                  // TextField(
+                  //   controller: _controller,
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Enter data to send',
+                  //     border: OutlineInputBorder(),
+                  //   ),
+                  // ),
+                  // SizedBox(height: 10),
                   BlocBuilder<ServiceBloc, ServiceState>(
                     builder: (context, state) {
                       return Column(
                         children: [
-                          Text(
-                            'Last sent data: ${state.inputData}',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              final String data = _controller.text.trim();
-                              if (data.isNotEmpty) {
-                                print('Button pressed, sending: $data');
-                                context.read<ServiceBloc>().add(SendData(data));
-                                _controller.clear(); // Uncomment to clear field
-                              }
-                            },
-                            child: Text('Send Data to Service'),
-                          ),
-                          SizedBox(height: 10),
+                          // Text(
+                          //   'Last sent data: ${state.inputData}',
+                          //   style: TextStyle(fontSize: 16),
+                          // ),
+                          // SizedBox(height: 10),
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     final String data = _controller.text.trim();
+                          //     if (data.isNotEmpty) {
+                          //       print('Button pressed, sending: $data');
+                          //       context.read<ServiceBloc>().add(SendData(data));
+                          //       _controller.clear(); // Uncomment to clear field
+                          //     }
+                          //   },
+                          //   child: Text('Send Data to Service'),
+                          // ),
+                          // SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () {
                               if (state.isServiceRunning) {
                                 context.read<ServiceBloc>().add(StopService());
-                                //graphWidget.stop();
+                                //cardWidget.stop();
                               } else {
                                 context.read<ServiceBloc>().add(StartService());
-                                //graphWidget.start();
+                                //cardWidget.start();
                               }
-                              //graphWidget.onStartStop();
+                              //cardWidget.onStartStop();
                             },
                             child: Text(
                               state.isServiceRunning

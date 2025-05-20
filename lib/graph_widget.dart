@@ -69,7 +69,7 @@ class GraphWidget extends StatelessWidget {
       obtain.stop(uuid);
       storeWrapper.stop();
     }
-    onRefreshWidgetAction();
+    //@onRefreshWidgetAction();
   }
 
   bool isFlowing() {

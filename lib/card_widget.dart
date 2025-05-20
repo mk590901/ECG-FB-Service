@@ -20,6 +20,19 @@ class CustomCardWidget extends StatefulWidget {
 
   @override
   State<CustomCardWidget> createState() => _CustomCardWidgetState();
+
+  void start() {
+    graphWidget.start();
+  }
+
+  void stop() {
+    graphWidget.stop();
+  }
+
+  void onStartStop() {
+    graphWidget.onStartStop();
+  }
+
 }
 
 class _CustomCardWidgetState extends State<CustomCardWidget> {
