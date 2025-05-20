@@ -43,6 +43,15 @@ class GraphWidget extends StatelessWidget {
     onRefreshWidgetAction = callback;
   }
 
+  bool isStarted() {
+    return obtain.isActive();
+  }
+
+  void start() {
+    storeWrapper.start();
+    obtain.start(uuid);
+  }
+
   void stop() {
     obtain.stop(uuid);
     storeWrapper.stop();
@@ -51,11 +60,6 @@ class GraphWidget extends StatelessWidget {
   void onChangeMode() {
     storeWrapper.setMode(isFlowing() ? GraphMode.overlay : GraphMode.flowing);
     onRefreshWidgetAction();
-  }
-
-  void start() {
-    storeWrapper.start();
-    obtain.start(uuid);
   }
 
   void onStartStop() {

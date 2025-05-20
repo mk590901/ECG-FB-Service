@@ -15,6 +15,8 @@ class ECGSensor {
 
   ECGSensor (this.simulator, this.exchanger) {
     _timer = null;
+
+    print ('-- Constructor ECGSensor --');
   }
 
   void start() {
@@ -33,8 +35,6 @@ class ECGSensor {
   }
 
   void _callbackFunction() {
-    //List<double> rowData = simulator.generateECGData();
-    //outFun(rowData);  // Only debug
     List<double> rowData = DataHolder.instance()?.getData()?? [];
     exchanger.put(rowData);
   }

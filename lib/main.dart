@@ -44,10 +44,10 @@ class HomeScreen extends StatelessWidget {
     //   onDeleteWidgetAction: () {},
     // );
 
-    GraphWidget graphWidget = GraphWidget(
+    final GraphWidget graphWidget = GraphWidget(
           samplesNumber: 128, //getSeriesLength(),
-          width: 400,
-          height: 100,
+          width: 340,
+          height: 120,
           mode: GraphMode.flowing);
 
     return PopScope(
@@ -149,6 +149,14 @@ class HomeScreen extends StatelessWidget {
 
                   BlocBuilder<ServiceBloc, ServiceState>(
                     builder: (context, state) {
+
+    //                if (state.isServiceRunning && state.counter == 1) {
+                      if (state.isServiceRunning && state.counter > 0) {
+                        if (!graphWidget.isStarted()) {
+                          graphWidget.start();
+                        }
+                      }
+
                       return Text(
                         state.isServiceRunning
                             ? 'Service is Running'
@@ -208,13 +216,16 @@ class HomeScreen extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               if (state.isServiceRunning) {
+                                graphWidget.stop();
                                 context.read<ServiceBloc>().add(StopService());
-                                //cardWidget.stop();
                               } else {
                                 context.read<ServiceBloc>().add(StartService());
+                                // runDelayed(const Duration(seconds: 2), () {
+                                //   graphWidget.start();
+                                // });
                                 //cardWidget.start();
                               }
-                              //cardWidget.onStartStop();
+                              //graphWidget.onStartStop();
                             },
                             child: Text(
                               state.isServiceRunning
@@ -248,4 +259,12 @@ class HomeScreen extends StatelessWidget {
       await SystemNavigator.pop();
     }
   }
+
+
+  void runDelayed(Duration delay, Function callback) {
+    Future.delayed(delay, () {
+      callback();
+    });
+  }
+
 }
