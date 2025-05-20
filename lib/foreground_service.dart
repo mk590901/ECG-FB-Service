@@ -4,6 +4,9 @@ import 'dart:ui';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'dart:math';
 
+import 'data_holder.dart';
+import 'ecg_simulator/ecg_simulator.dart';
+
 // Initialize the foreground service
 Future<void> initializeForegroundService() async {
   FlutterForegroundTask.init(
@@ -34,6 +37,7 @@ Future<void> initializeForegroundService() async {
 class ServiceTaskHandler extends TaskHandler {
   int counter = 0;
   final Random random = Random();
+  final EcgSimulator ecgSimulator = EcgSimulator(128);
   SendPort? _sendPort;
 
   @override
@@ -57,6 +61,10 @@ class ServiceTaskHandler extends TaskHandler {
       random.nextDouble() * 100,
     ];
     print('Foreground service running: $counter, numbers: $numbers');
+
+    //List<int> rowData = ecgSimulator.generateBuffer();
+    List<double> rawData = ecgSimulator.generateECGData();
+    DataHolder.instance()?.putData(rawData);
 
     // Update notification
     await FlutterForegroundTask.updateService(

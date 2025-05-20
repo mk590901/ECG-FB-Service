@@ -75,7 +75,7 @@ class ECGWrapper {
     int seriesSize = seriesLength();
 
     if ((counter-1) == 0) {
-      exchanger.get(_seriesLength);
+      exchanger.get(_seriesLength); //  >>>>
     }
 
     List<int> dataExtracted = extractRangeData(rowData, (counter-1)*seriesSize, seriesSize);

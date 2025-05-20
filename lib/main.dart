@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'card_widget.dart';
+import 'data_holder.dart';
 import 'graph_mode.dart';
 import 'graph_widget.dart';
 import 'service_bloc.dart';
 import 'foreground_service.dart';
 
 void main() async {
+  DataHolder.initInstance();
   WidgetsFlutterBinding.ensureInitialized();
   await initializeForegroundService();
   runApp(MyApp());

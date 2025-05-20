@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter_fb_task/data_holder.dart';
+
 import '../ecg_simulator/ecg_simulator.dart';
 import '../data_exchanger.dart';
 
@@ -31,8 +33,9 @@ class ECGSensor {
   }
 
   void _callbackFunction() {
-    List<double> rowData = simulator.generateECGData();
+    //List<double> rowData = simulator.generateECGData();
     //outFun(rowData);  // Only debug
+    List<double> rowData = DataHolder.instance()?.getData()?? [];
     exchanger.put(rowData);
   }
 
