@@ -165,14 +165,14 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 10),
-                  BlocBuilder<ServiceBloc, ServiceState>(
-                    builder: (context, state) {
-                      return Text(
-                        'Numbers: ${state.numbers.map((n) => n.toStringAsFixed(2)).join(', ')}',
-                        style: TextStyle(fontSize: 16),
-                      );
-                    },
-                  ),
+                  // BlocBuilder<ServiceBloc, ServiceState>(
+                  //   builder: (context, state) {
+                  //     return Text(
+                  //       'Numbers: ${state.numbers.map((n) => n.toStringAsFixed(2)).join(', ')}',
+                  //       style: TextStyle(fontSize: 16),
+                  //     );
+                  //   },
+                  // ),
                   SizedBox(height: 10),
                   TextField(
                     controller: _controller,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
+import 'data_holder.dart';
 import 'foreground_service.dart';
 
 // Events
@@ -56,9 +57,14 @@ class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
     // Listen for data from the service
     _dataSubscription = FlutterForegroundTask.receivePort?.listen((data) {
       if (data is Map && data.containsKey('counter') && data.containsKey('numbers')) {
+        int counter = data['counter'] as int;
+        List<double> rawData = List<double>.from(data['numbers'].map((e) => e as double));
+        print('receivePort: $counter, numbers: ${rawData.length}');
+        DataHolder.instance()?.putData(rawData);
         add(UpdateData(
-          data['counter'] as int,
-          List<double>.from(data['numbers'].map((e) => e as double)),
+            counter, rawData
+          // data['counter'] as int,
+          // List<double>.from(data['numbers'].map((e) => e as double)),
         ));
       }
     });

@@ -55,22 +55,24 @@ class ServiceTaskHandler extends TaskHandler {
   void onRepeatEvent(DateTime timestamp, SendPort? sendPort) async {
     counter++;
     // Generate List<double> (3 random numbers between 0 and 100)
-    List<double> numbers = [
-      random.nextDouble() * 100,
-      random.nextDouble() * 100,
-      random.nextDouble() * 100,
-    ];
-    print('Foreground service running: $counter, numbers: $numbers');
+    // List<double> numbers = [
+    //   random.nextDouble() * 100,
+    //   random.nextDouble() * 100,
+    //   random.nextDouble() * 100,
+    // ];
+    List<double> numbers = ecgSimulator.generateECGData();
+    print('Foreground service running: $counter, numbers: ${numbers.length}');
 
     //List<int> rowData = ecgSimulator.generateBuffer();
-    List<double> rawData = ecgSimulator.generateECGData();
-    DataHolder.instance()?.putData(rawData);
+    // List<double> rawData = ecgSimulator.generateECGData();
+    // DataHolder.instance()?.putData(rawData);
 
     // Update notification
     await FlutterForegroundTask.updateService(
       foregroundTaskOptions: const ForegroundTaskOptions(interval: 1000,),
       notificationTitle: 'Foreground Service',
-      notificationText: 'Counter: $counter, Numbers: ${numbers.map((n) => n.toStringAsFixed(2)).join(', ')}',
+      notificationText: '${DateTime.now()}\ncounter: $counter',
+      //notificationText: 'Counter: $counter, Numbers: ${numbers.map((n) => n.toStringAsFixed(2)).join(', ')}',
       // notificationIcon: NotificationIconData(
       //   resType: ResourceType.mipmap,
       //   resPrefix: ResourcePrefix.ic,
