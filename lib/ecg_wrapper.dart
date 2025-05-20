@@ -33,9 +33,9 @@ class ECGWrapper {
   late List<int> rowData;
 
   ECGWrapper(this._seriesLength, this._seriesNumber, this._drawSeriesLength, this._mode) {
-    simulator = EcgSimulator(_seriesLength);
+    //simulator = EcgSimulator(_seriesLength);
     exchanger = DataExchanger(_seriesLength*2, outFun);
-    sensor = ECGSensor(simulator, exchanger);
+    sensor = ECGSensor(/*simulator,*/ exchanger);
     rowData = List<int>.filled(_seriesLength, 0);
     buffer_ = CircularBuffer<int>(_seriesLength*_seriesNumber);
   }

@@ -7,13 +7,13 @@ import '../data_exchanger.dart';
 
 class ECGSensor {
   static int PERIOD = 1000;
-  final EcgSimulator simulator;
+  //final EcgSimulator simulator;
   final DataExchanger exchanger;
   final Duration _period = Duration(milliseconds: PERIOD);
 
   late Timer? _timer;
 
-  ECGSensor (this.simulator, this.exchanger) {
+  ECGSensor (/*this.simulator,*/ this.exchanger) {
     _timer = null;
 
     print ('-- Constructor ECGSensor --');
