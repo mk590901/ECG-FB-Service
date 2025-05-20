@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
 
     final GraphWidget graphWidget = GraphWidget(
           samplesNumber: 128, //getSeriesLength(),
-          width: 340,
+          width: MediaQuery.of(context).size.width,//340,
           height: 120,
           mode: GraphMode.flowing);
 
