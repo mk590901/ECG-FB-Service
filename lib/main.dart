@@ -52,7 +52,21 @@ class HomeScreen extends StatelessWidget {
         // For 'ignore' we do nothing, the dialog just closes
       },
       child: Scaffold(
-        appBar: AppBar(title: Text('Foreground Service App')),
+        appBar: AppBar(
+          title: const Text('Foreground Service App',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic)),
+          leading: IconButton(
+            icon: const Icon(Icons.settings_outlined, color: Colors.white), // Icon widget
+            onPressed: () {
+              // Add onPressed logic here if need
+            },
+          ),
+          backgroundColor: Colors.lightBlue,
+        ),
+
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
