@@ -4,7 +4,7 @@ import 'ecg_simulator/ecg_simulator.dart';
 class DataHolder {
   static DataHolder? _instance;
 
-  late List<double> rowData = [];
+  late List<double> rawData = [];
 
   static void initInstance() {
     _instance ??= DataHolder();
@@ -19,11 +19,11 @@ class DataHolder {
   }
 
   List<double> getData() {
-    return rowData;
+    return rawData;
   }
 
   void putData(List<double> data) {
-    rowData = data;
+    rawData = data;
   }
 
 
