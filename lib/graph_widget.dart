@@ -16,10 +16,7 @@ class GraphWidget extends StatelessWidget {
   final double width;
   final double height;
   final GraphMode mode;
-  late  VoidCallback onRefreshWidgetAction;
   final String uuid = const Uuid().v4().toString();
-
-  bool _startStop = false;
 
   late ECGWrapper storeWrapper;
 
@@ -35,10 +32,6 @@ class GraphWidget extends StatelessWidget {
     int pointsToDraw =
         (samplesNumber.toDouble() / (PERIOD.toDouble() / FREQ.toDouble())).toInt() + 1;
     storeWrapper = ECGWrapper(samplesNumber, 5, pointsToDraw, mode);
-  }
-
-  void setRefreshCallback(VoidCallback callback) {
-    onRefreshWidgetAction = callback;
   }
 
   bool isStarted() {
@@ -57,29 +50,10 @@ class GraphWidget extends StatelessWidget {
 
   void onChangeMode() {
     storeWrapper.setMode(isFlowing() ? GraphMode.overlay : GraphMode.flowing);
-    //onRefreshWidgetAction();
-  }
-
-  void onStartStop() {
-    _startStop = !_startStop;
-    if (_startStop) {
-      print ('******* START *******');
-      storeWrapper.start();
-      obtain.start(uuid);
-    } else {
-      print ('******* STOP  *******');
-      obtain.stop(uuid);
-      storeWrapper.stop();
-    }
-    //@onRefreshWidgetAction();
   }
 
   bool isFlowing() {
     return storeWrapper.mode() == GraphMode.flowing;
-  }
-
-  bool isActive() {
-    return _startStop;
   }
 
   @override
