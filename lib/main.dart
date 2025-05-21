@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'card_widget.dart';
 import 'data_holder.dart';
 import 'graph_mode.dart';
 import 'graph_widget.dart';
@@ -12,11 +11,11 @@ void main() async {
   DataHolder.initInstance();
   WidgetsFlutterBinding.ensureInitialized();
   await initializeForegroundService();
-  runApp(MyApp());
+  runApp(ForegroundServiceApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ForegroundServiceApp extends StatelessWidget {
+  const ForegroundServiceApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,90 +27,25 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
 
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
 
-    // CustomCardWidget cardWidget = CustomCardWidget(
-    //   graphWidget: GraphWidget(
-    //       samplesNumber: 128, //getSeriesLength(),
-    //       width: 340,
-    //       height: 100,
-    //       mode: GraphMode.flowing),
-    //   onDeleteWidgetAction: () {},
-    // );
-
     final GraphWidget graphWidget = GraphWidget(
-          samplesNumber: 128, //getSeriesLength(),
-          width: MediaQuery.of(context).size.width,//340,
-          height: 120,
-          mode: GraphMode.flowing);
+      samplesNumber: 128,
+      width: MediaQuery.of(context).size.width,
+      height: 120,
+      mode: GraphMode.flowing,
+    );
 
     return PopScope(
       canPop: false, // Disable the default behavior of the "back" button
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return; // If pop has already been executed, do nothing
         // Show the dialog box
-        final result = await showDialog<String>(
-          context: context,
-          builder:
-              (context) => AlertDialog(
-                title: Text(
-                  'Application exit',
-                  style: TextStyle(fontSize: 16, color: Colors.blueAccent),
-                ),
-                content: Text(
-                  'Choose one of app exit option:\n\t - Ignore: stay in application\n\t - Close: exit leaving service\n\t - Exit: stop service and exit',
-                  style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
-                ),
-                actions: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.0),
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context, 'ignore'),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(40, 36),
-                              textStyle: TextStyle(fontSize: 10),
-                            ),
-                            child: Text('Ignore'),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.0),
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context, 'close'),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(40, 36),
-                              textStyle: TextStyle(fontSize: 10),
-                            ),
-                            child: Text('Close'),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.0),
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context, 'exit'),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(20, 36),
-                              textStyle: TextStyle(fontSize: 10),
-                            ),
-                            child: Text('Exit'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-        );
+        final result = await showAppExitDialog(context);
 
         // Processing user selection
         await reaction(result, context);
@@ -133,24 +67,8 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
-                  //cardWidget,
-                  graphWidget,
-
-                  // CustomCardWidget(
-                  //     graphWidget: GraphWidget(
-                  //         samplesNumber: 128, //getSeriesLength(),
-                  //         width: 340,
-                  //         height: 100,
-                  //         mode: GraphMode.flowing),
-                  //         onDeleteWidgetAction: () {},
-                  // ),
-
-                  SizedBox(height: 30),
-
                   BlocBuilder<ServiceBloc, ServiceState>(
                     builder: (context, state) {
-
-    //                if (state.isServiceRunning && state.counter == 1) {
                       if (state.isServiceRunning && state.counter > 0) {
                         if (!graphWidget.isStarted()) {
                           graphWidget.start();
@@ -165,7 +83,12 @@ class HomeScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 30),
+
+                  graphWidget,
+
+                  SizedBox(height: 30),
+
                   BlocBuilder<ServiceBloc, ServiceState>(
                     builder: (context, state) {
                       return Text(
@@ -175,44 +98,10 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 10),
-                  // BlocBuilder<ServiceBloc, ServiceState>(
-                  //   builder: (context, state) {
-                  //     return Text(
-                  //       'Numbers: ${state.numbers.map((n) => n.toStringAsFixed(2)).join(', ')}',
-                  //       style: TextStyle(fontSize: 16),
-                  //     );
-                  //   },
-                  // ),
-                  SizedBox(height: 10),
-                  // TextField(
-                  //   controller: _controller,
-                  //   decoration: InputDecoration(
-                  //     labelText: 'Enter data to send',
-                  //     border: OutlineInputBorder(),
-                  //   ),
-                  // ),
-                  // SizedBox(height: 10),
                   BlocBuilder<ServiceBloc, ServiceState>(
                     builder: (context, state) {
                       return Column(
                         children: [
-                          // Text(
-                          //   'Last sent data: ${state.inputData}',
-                          //   style: TextStyle(fontSize: 16),
-                          // ),
-                          // SizedBox(height: 10),
-                          // ElevatedButton(
-                          //   onPressed: () {
-                          //     final String data = _controller.text.trim();
-                          //     if (data.isNotEmpty) {
-                          //       print('Button pressed, sending: $data');
-                          //       context.read<ServiceBloc>().add(SendData(data));
-                          //       _controller.clear(); // Uncomment to clear field
-                          //     }
-                          //   },
-                          //   child: Text('Send Data to Service'),
-                          // ),
-                          // SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () {
                               if (state.isServiceRunning) {
@@ -220,12 +109,7 @@ class HomeScreen extends StatelessWidget {
                                 context.read<ServiceBloc>().add(StopService());
                               } else {
                                 context.read<ServiceBloc>().add(StartService());
-                                // runDelayed(const Duration(seconds: 2), () {
-                                //   graphWidget.start();
-                                // });
-                                //cardWidget.start();
                               }
-                              //graphWidget.onStartStop();
                             },
                             child: Text(
                               state.isServiceRunning
@@ -246,6 +130,66 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Future<String?> showAppExitDialog(BuildContext context) {
+    return showDialog<String>(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text(
+              'Application exit',
+              style: TextStyle(fontSize: 16, color: Colors.blueAccent),
+            ),
+            content: Text(
+              'Choose one of app exit option:\n\t - Ignore: stay in application\n\t - Close: exit leaving service\n\t - Exit: stop service and exit',
+              style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+            ),
+            actions: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pop(context, 'ignore'),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(40, 36),
+                          textStyle: TextStyle(fontSize: 10),
+                        ),
+                        child: Text('Ignore'),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pop(context, 'close'),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(40, 36),
+                          textStyle: TextStyle(fontSize: 10),
+                        ),
+                        child: Text('Close'),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pop(context, 'exit'),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(20, 36),
+                          textStyle: TextStyle(fontSize: 10),
+                        ),
+                        child: Text('Exit'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+    );
+  }
+
   Future<void> reaction(String? result, BuildContext context) async {
     if (!context.mounted) {
       return;
@@ -260,11 +204,9 @@ class HomeScreen extends StatelessWidget {
     }
   }
 
-
-  void runDelayed(Duration delay, Function callback) {
-    Future.delayed(delay, () {
-      callback();
-    });
-  }
-
+  // void runDelayed(Duration delay, Function callback) {
+  //   Future.delayed(delay, () {
+  //     callback();
+  //   });
+  // }
 }
