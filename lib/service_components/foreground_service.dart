@@ -4,8 +4,8 @@ import 'dart:ui';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'dart:math';
 
-import 'data_holder.dart';
-import 'ecg_simulator/ecg_simulator.dart';
+import '../data_collection/data_holder.dart';
+import '../ecg_simulator/ecg_simulator.dart';
 
 // Initialize the foreground service
 Future<void> initializeForegroundService() async {

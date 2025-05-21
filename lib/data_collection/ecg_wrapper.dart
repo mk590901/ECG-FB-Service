@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'circular_buffer.dart';
-import 'ecg_sensor/ecg_sensor.dart';
-import 'ecg_simulator/ecg_simulator.dart';
+import '../ecg_sensor/ecg_sensor.dart';
+import '../widget/graph_mode.dart';
+import '../utils.dart';
 import 'data_exchanger.dart';
-import 'graph_mode.dart';
-import 'utils.dart';
 
 class ECGWrapper {
 
@@ -15,7 +14,6 @@ class ECGWrapper {
 
   late  CircularBuffer<int> buffer_;
 
-  late EcgSimulator simulator;
   late DataExchanger exchanger;
   late ECGSensor sensor;
 
@@ -33,9 +31,8 @@ class ECGWrapper {
   late List<int> rowData;
 
   ECGWrapper(this._seriesLength, this._seriesNumber, this._drawSeriesLength, this._mode) {
-    //simulator = EcgSimulator(_seriesLength);
     exchanger = DataExchanger(_seriesLength*2, outFun);
-    sensor = ECGSensor(/*simulator,*/ exchanger);
+    sensor = ECGSensor(exchanger);
     rowData = List<int>.filled(_seriesLength, 0);
     buffer_ = CircularBuffer<int>(_seriesLength*_seriesNumber);
   }

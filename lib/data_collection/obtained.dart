@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'drawing_bloc.dart';
-import 'events/draw_events.dart';
-import 'events/event.dart';
+import '../events/draw_events.dart';
+import '../events/event.dart';
+import '../widget/drawing_bloc.dart';
 import 'pair_data_object.dart';
 
 class Obtained {

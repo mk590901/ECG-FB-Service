@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'data_holder.dart';
-import 'graph_mode.dart';
-import 'graph_widget.dart';
-import 'service_bloc.dart';
-import 'foreground_service.dart';
+import 'data_collection/data_holder.dart';
+import 'widget/graph_mode.dart';
+import 'widget/graph_widget.dart';
+import 'service_components/service_bloc.dart';
+import 'service_components/foreground_service.dart';
 
 void main() async {
   DataHolder.initInstance();

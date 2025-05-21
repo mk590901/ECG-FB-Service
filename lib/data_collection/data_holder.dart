@@ -1,5 +1,5 @@
 import 'circular_buffer.dart';
-import 'ecg_simulator/ecg_simulator.dart';
+import '../ecg_simulator/ecg_simulator.dart';
 
 class DataHolder {
   static DataHolder? _instance;

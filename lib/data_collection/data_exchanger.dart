@@ -1,5 +1,5 @@
 import 'dart:collection';
-import 'callback_fun_type.dart';
+import '../callback_fun_type.dart';
 import 'circular_buffer.dart';
 import 'message_handler.dart';
 

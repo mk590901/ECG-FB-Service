@@ -1,19 +1,18 @@
 import 'dart:async';
 
-import 'package:flutter_fb_task/data_holder.dart';
+import 'package:flutter_fb_task/data_collection/data_holder.dart';
 
 import '../ecg_simulator/ecg_simulator.dart';
-import '../data_exchanger.dart';
+import '../data_collection/data_exchanger.dart';
 
 class ECGSensor {
   static int PERIOD = 1000;
-  //final EcgSimulator simulator;
   final DataExchanger exchanger;
   final Duration _period = Duration(milliseconds: PERIOD);
 
   late Timer? _timer;
 
-  ECGSensor (/*this.simulator,*/ this.exchanger) {
+  ECGSensor (this.exchanger) {
     _timer = null;
 
     print ('-- Constructor ECGSensor --');

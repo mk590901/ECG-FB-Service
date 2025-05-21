@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'ecg_wrapper.dart';
-import 'circular_buffer.dart';
+import '../data_collection/ecg_wrapper.dart';
+import '../data_collection/circular_buffer.dart';
 import 'graph_mode.dart';
 
 class PathPainter extends CustomPainter {

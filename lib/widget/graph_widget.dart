@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
+import '../data_collection/obtained.dart';
+import '../states/drawing_state.dart';
+import '../data_collection/ecg_wrapper.dart';
 import 'drawing_bloc.dart';
-import 'obtained.dart';
-import 'path_painter.dart';
-import 'states/drawing_state.dart';
-import 'ecg_wrapper.dart';
 import 'graph_mode.dart';
+import 'path_painter.dart';
 
 class GraphWidget extends StatelessWidget {
   static const int FREQ = 24; // frames-per-seconds

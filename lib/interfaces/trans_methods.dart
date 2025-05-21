@@ -1,4 +1,4 @@
-import '../pair_data_object.dart';
+import '../data_collection/pair_data_object.dart';
 import 'i_transition_method.dart';
 
 class OnNothing implements ITransitionMethod {

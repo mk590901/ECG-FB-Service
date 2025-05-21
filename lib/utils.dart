@@ -1,6 +1,6 @@
 import 'dart:math';
-import 'circular_buffer.dart';
-import 'ecg_wrapper.dart';
+import 'data_collection/circular_buffer.dart';
+import 'data_collection/ecg_wrapper.dart';
 
 List<int> extractRangeData(final List<int> rowData, final int start, final int number) {
   List<int> result = <int>[];
