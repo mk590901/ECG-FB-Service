@@ -33,9 +33,7 @@ class GraphWidget extends StatelessWidget {
       required this.mode,
       }) {
     int pointsToDraw =
-        (samplesNumber.toDouble() / (PERIOD.toDouble() / FREQ.toDouble()))
-                .toInt() +
-            1;
+        (samplesNumber.toDouble() / (PERIOD.toDouble() / FREQ.toDouble())).toInt() + 1;
     storeWrapper = ECGWrapper(samplesNumber, 5, pointsToDraw, mode);
   }
 
@@ -59,7 +57,7 @@ class GraphWidget extends StatelessWidget {
 
   void onChangeMode() {
     storeWrapper.setMode(isFlowing() ? GraphMode.overlay : GraphMode.flowing);
-    onRefreshWidgetAction();
+    //onRefreshWidgetAction();
   }
 
   void onStartStop() {
@@ -90,7 +88,7 @@ class GraphWidget extends StatelessWidget {
       create: (_) => DrawingBloc(DrawingState(DrawingStates.drawing)),
       child: GestureDetector(
         onTap: () {
-          onStartStop();
+          onChangeMode();
         },
         child:
             BlocBuilder<DrawingBloc, DrawingState>(builder: (context, state) {
