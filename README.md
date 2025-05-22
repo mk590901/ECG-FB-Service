@@ -4,9 +4,7 @@ This application is an adaptation of the project https://github.com/mk590901/dat
 
 ## Introduction
 
-The main idea: the ECG signal simulator is moved to a service that transmits data to the frontend.
-
-The flutter_foreground_task (https://pub.dev/packages/flutter_foreground_task) package is used for implementation.
+The main idea: the __ECG__ signal simulator is moved to a service that transmits data to the frontend. The flutter_foreground_task package (https://pub.dev/packages/flutter_foreground_task) package is used for implementation.
 
 ## Movie
 
