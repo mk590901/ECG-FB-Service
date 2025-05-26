@@ -1,16 +1,12 @@
-# flutter_fb_task
+# ECG FB Service
 
-A new Flutter project.
+This application is an adaptation of the project https://github.com/mk590901/data_exchanger to work as a service.
 
-## Getting Started
+## Introduction
 
-This project is a starting point for a Flutter application.
+The main idea: the __ECG__ signal simulator is moved to a service that transmits data to the frontend. The __flutter_foreground_task__ package (https://pub.dev/packages/flutter_foreground_task) package is used for implementation.
 
-A few resources to get you started if this is your first Flutter project:
+## Movie
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://github.com/user-attachments/assets/ef148fda-8b0e-4195-a9c1-734341991565
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
