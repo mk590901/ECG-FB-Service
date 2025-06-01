@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import '../data_collection/data_holder.dart';
-import '../ecg_simulator/ecg_simulator.dart';
 import '../data_collection/data_exchanger.dart';
 
 class ECGSensor {
